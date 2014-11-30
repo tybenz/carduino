@@ -53,6 +53,27 @@ void Car::stop() {
     _shifter->setPin(M2_STBY, LOW);
 }
 
+void Car::turnRight() {
+}
+
+void Car::turnLeft() {
+}
+
+void Car::calibrate() {
+}
+
+long Car::pingLeft() {
+    return ping(0);
+}
+
+long Car::pingRight() {
+    return ping(1);
+}
+
+long Car::pingFront() {
+    return ping(2);
+}
+
 // Move specific motor at speed and direction
 // motor: 0 for M1_A 1 for M1_B 2 for M2_A 3 for M2_B
 // direction: 0 clockwise, 1 counter-clockwise
@@ -90,16 +111,32 @@ void Car::move(int motor, int direction) {
     }
 }
 
-void Car::turnRight() {
+// Ping left/right/forward - returns long distance
+// direction: 0 for LEFT 1 for RIGHT 2 for FRONT
+long Car::ping(int direction) {
+    int trigPin, echoPin;
+    long duration;
 
-}
+    if (direction == 0) {
+        trigPin = leftTrig();
+        echoPin = leftEcho();
+    } else if (direction == 1) {
+        trigPin = rightTrig();
+        echoPin = rightEcho();
+    } else if (direction == 2) {
+        trigPin = frontTrig();
+        echoPin = frontEcho();
+    }
 
-void Car::turnLeft() {
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
 
-}
+    duration = pulseIn(echoPin, HIGH);
 
-void Car::calibrate() {
-
+    return (duration/2) / 29.1;
 }
 
 int Car::leftTrig() {

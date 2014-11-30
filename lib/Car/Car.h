@@ -13,6 +13,9 @@ class Car
         void turnLeft();
         void calibrate();
         void stop();
+        long pingLeft();
+        long pingRight();
+        long pingFront();
 
     private:
         Shifter* _shifter;
@@ -24,6 +27,7 @@ class Car
         int frontTrig();
         int frontEcho();
         void move(int motor, int direction);
+        long ping(int direction);
 };
 
 #endif //Car_h

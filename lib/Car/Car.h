@@ -13,6 +13,7 @@ class Car
         void turnLeft();
         void calibrate();
         void stop();
+        void clearShifter();
         long pingLeft();
         long pingRight();
         long pingFront();

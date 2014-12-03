@@ -10,15 +10,16 @@
 #define FRONT_ECHO 5
 
 #define M1_PWMA 0
-#define M1_AIN1 1
-#define M1_AIN2 2
+#define M1_AIN1 2
+#define M1_AIN2 1
 #define M1_STBY 3
 #define M1_BIN1 4
 #define M1_BIN2 5
 #define M1_PWMB 6
+
 #define M2_PWMA 8
-#define M2_AIN1 9
-#define M2_AIN2 10
+#define M2_AIN1 10
+#define M2_AIN2 9
 #define M2_STBY 11
 #define M2_BIN1 12
 #define M2_BIN2 13
@@ -41,16 +42,22 @@ Car::Car(int serPin, int rClockPin, int srClockPin, int sensorPins[]) {
 }
 
 void Car::moveForward() {
-    move(0, 0);
-    move(1, 0);
-    move(2, 0);
-    move(3, 0);
+    move(0, 1);
+    move(1, 1);
+    move(2, 1);
+    move(3, 1);
+}
+
+void Car::clearShifter() {
+    _shifter->clear();
+    _shifter->write();
 }
 
 void Car::stop() {
-    _shifter->setAll(LOW);
+    _shifter->clear();
     _shifter->setPin(M1_STBY, LOW);
     _shifter->setPin(M2_STBY, LOW);
+    _shifter->write();
 }
 
 void Car::turnRight() {
@@ -109,6 +116,7 @@ void Car::move(int motor, int direction) {
         _shifter->setPin(M2_BIN2, inPin2);
         _shifter->setPin(M2_PWMB, HIGH);
     }
+    _shifter->write();
 }
 
 // Ping left/right/forward - returns long distance

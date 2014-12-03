@@ -10,4 +10,8 @@ void setup() {
 int calibrating = 1;
 
 void loop() {
+    car->clearShifter();
+    delay(1000);
+    car->moveForward();
+    delay(1000);
 }

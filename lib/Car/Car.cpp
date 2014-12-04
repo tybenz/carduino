@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <Car.h>
 
 #define NUM_REGISTERS 2
@@ -39,6 +38,8 @@ Car::Car(int serPin, int rClockPin, int srClockPin, int sensorPins[]) {
         }
         _sensors[i] = sensorPins[i];
     }
+
+    clearShifter();
 }
 
 void Car::moveForward() {
@@ -61,9 +62,17 @@ void Car::stop() {
 }
 
 void Car::turnRight() {
+    move(0, 1);
+    move(1, 1);
+    move(2, 0);
+    move(3, 0);
 }
 
 void Car::turnLeft() {
+    move(0, 0);
+    move(1, 0);
+    move(2, 1);
+    move(3, 1);
 }
 
 void Car::calibrate() {
@@ -91,29 +100,33 @@ void Car::move(int motor, int direction) {
         _shifter->setPin(M2_STBY, HIGH);
     }
 
-    boolean inPin1 = LOW;
-    boolean inPin2 = HIGH;
+    boolean inPin1A = LOW;
+    boolean inPin2A = HIGH;
+    boolean inPin1B = HIGH;
+    boolean inPin2B = LOW;
 
     if (direction == 1) {
-        inPin1 = HIGH;
-        inPin2 = LOW;
+        inPin1A = HIGH;
+        inPin2A = LOW;
+        inPin1B = LOW;
+        inPin2B = HIGH;
     }
 
     if (motor == 0) {
-        _shifter->setPin(M1_AIN1, inPin1);
-        _shifter->setPin(M1_AIN2, inPin2);
+        _shifter->setPin(M1_AIN1, inPin1A);
+        _shifter->setPin(M1_AIN2, inPin2A);
         _shifter->setPin(M1_PWMA, HIGH);
     } else if (motor == 1) {
-        _shifter->setPin(M1_BIN1, inPin1);
-        _shifter->setPin(M1_BIN2, inPin2);
+        _shifter->setPin(M1_BIN1, inPin1B);
+        _shifter->setPin(M1_BIN2, inPin2B);
         _shifter->setPin(M1_PWMB, HIGH);
     } else if (motor == 2) {
-        _shifter->setPin(M2_AIN1, inPin1);
-        _shifter->setPin(M2_AIN2, inPin2);
+        _shifter->setPin(M2_AIN1, inPin1A);
+        _shifter->setPin(M2_AIN2, inPin2A);
         _shifter->setPin(M2_PWMA, HIGH);
     } else {
-        _shifter->setPin(M2_BIN1, inPin1);
-        _shifter->setPin(M2_BIN2, inPin2);
+        _shifter->setPin(M2_BIN1, inPin1B);
+        _shifter->setPin(M2_BIN2, inPin2B);
         _shifter->setPin(M2_PWMB, HIGH);
     }
     _shifter->write();

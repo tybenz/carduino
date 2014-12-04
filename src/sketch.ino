@@ -1,17 +1,16 @@
-#include <Shifter.h>
 #include <Car.h>
 
-int sensors[] = {8, 9, 2, 3, 4, 5};
+int sensors[] = {9, 8, 5, 3, 7, 6};
 Car* car = new Car(10, 11, 12, sensors);
 
 void setup() {
 }
 
-int calibrating = 1;
-
 void loop() {
-    car->clearShifter();
-    delay(1000);
     car->moveForward();
     delay(1000);
+    car->stop();
+    delay(250);
+    car->turnRight();
+    delay(350);
 }

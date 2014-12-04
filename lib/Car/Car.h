@@ -9,6 +9,7 @@ class Car
     public:
         Car(int serPin, int rClockPin, int srClockPin, int sensorPins[]);
         void moveForward();
+        void moveBackward();
         void turnRight();
         void turnLeft();
         void calibrate();

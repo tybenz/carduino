@@ -49,6 +49,13 @@ void Car::moveForward() {
     move(3, 1);
 }
 
+void Car::moveBackward() {
+    move(0, 0);
+    move(1, 0);
+    move(2, 0);
+    move(3, 0);
+}
+
 void Car::clearShifter() {
     _shifter->clear();
     _shifter->write();
@@ -62,17 +69,17 @@ void Car::stop() {
 }
 
 void Car::turnRight() {
-    move(0, 1);
-    move(1, 1);
-    move(2, 0);
-    move(3, 0);
-}
-
-void Car::turnLeft() {
     move(0, 0);
     move(1, 0);
     move(2, 1);
     move(3, 1);
+}
+
+void Car::turnLeft() {
+    move(0, 1);
+    move(1, 1);
+    move(2, 0);
+    move(3, 0);
 }
 
 void Car::calibrate() {

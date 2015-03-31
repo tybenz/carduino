@@ -7,11 +7,9 @@
 int sensors[] = {9, 8, 5, 3, 7, 6};
 Car* car = new Car(10, 11, 12, sensors);
 
-long friction = 1.0;
 int forward = 920;
 int stopDelay = 400;
 int turn = 440;
-boolean done = false;
 
 void setup() {
 }

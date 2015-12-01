@@ -46,6 +46,11 @@ app.post( '/write', function( req, res, next ) {
     });
 });
 
+app.post( '/build', function( req, res, next ) {
+    var result = sh.exec( 'ino clean && ino build' );
+    res.sendStatus( result.code === 0 ? 200 : 500 );
+});
+
 app.post( '/upload', function( req, res, next ) {
     var result = sh.exec( 'ino upload' );
     res.sendStatus( result.code === 0 ? 200 : 500 );

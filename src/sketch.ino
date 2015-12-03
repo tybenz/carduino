@@ -7,20 +7,31 @@
 int sensors[] = {9, 8, 5, 3, 7, 6};
 Car* car = new Car(10, 11, 12, sensors);
 
-int forward = 920;
+int forward = 470;
 int stopDelay = 400;
-int turn = 440;
+int turn = 555;
+int pleaseStop = 0;
 
 void setup() {
 }
 
 void loop() {
+    if ( !pleaseStop ) {
     //BEGIN
+        moveForward();
         turnRight();
+        moveForward();
+        moveForward();
+        moveForward();
         turnLeft();
-        turnLeft();
-        turnRight();
+        moveForward();
+        moveForward();
+        moveForward();
         //END
+        pleaseStop = 1;
+    } else {
+        stop();
+    }
 }
 
 void moveForward() {

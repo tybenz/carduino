@@ -15,25 +15,12 @@ void setup() {
 }
 
 void loop() {
-    long toTheLeft, toTheRight;
-    long inFront = ping(FRONT);
-    if (inFront < 12) {
-        stop();
-
-        toTheRight = ping(RIGHT);
-        toTheLeft = ping(LEFT);
-        if (toTheLeft < 12 && toTheRight < 12) {
-            // turnaround
-            turnRight();
-            turnRight();
-        } else if (toTheLeft < toTheRight) {
-            turnRight();
-        } else {
-            turnLeft();
-        }
-    } else {
-        car->moveForward();
-    }
+    //BEGIN
+        turnRight();
+        turnLeft();
+        turnLeft();
+        turnRight();
+        //END
 }
 
 void moveForward() {

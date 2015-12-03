@@ -10,27 +10,31 @@ Car* car = new Car(10, 11, 12, sensors);
 long friction = 1.0;
 int forward = 920;
 int stopDelay = 400;
-int turn = 440;
+int turn = 383;
 boolean done = false;
 
 void setup() {
+    Serial.begin(9600);
 }
 
 void loop() {
     long toTheLeft, toTheRight;
     long inFront = ping(FRONT);
+
     if (inFront < 12) {
         stop();
 
+        delay(1);
         toTheRight = ping(RIGHT);
+        delay(1);
         toTheLeft = ping(LEFT);
-        if (toTheLeft < 12 && toTheRight < 12) {
-            // turnaround
-            turnRight();
-            turnRight();
-        } else if (toTheLeft < toTheRight) {
+        if ( toTheLeft > 12 ) {
+            turnLeft();
+        } else if ( toTheRight > 12 ) {
             turnRight();
         } else {
+            // turnaround
+            turnLeft();
             turnLeft();
         }
     } else {
